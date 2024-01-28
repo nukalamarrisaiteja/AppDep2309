@@ -6,6 +6,7 @@ const jwt=require("jsonwebtoken");
 const bcrypt=require("bcrypt")
 const dotenv=require("dotenv")
 dotenv.config();
+const path=require("node:path");
 
 const storage = multer.diskStorage({
     destination:  (req, file, cb)=> {
@@ -39,6 +40,8 @@ app.use(express.json());
 app.use(express.urlencoded());
 
 app.use('/uploads', express.static('uploads'))
+
+app.use(express.static(path.join(__dirname,"./client/build")))
 
 app.post("/signup",upload.array("profilePic"),async(req,res)=>{
 
